@@ -29,30 +29,42 @@ function render(variables = {}) {
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
   let firstName =
-    variables.name === null ? (variables.name = "firstName") : null;
+    variables.name === null ? (variables.name = "Name") : variables.name;
 
   let surName =
-    variables.lastName === null ? (variables.lastName = "surName") : null;
+    variables.lastName === null
+      ? (variables.lastName = "Surname")
+      : variables.lastName;
 
-  let profession =
-    variables.role === null ? (variables.role = "profession") : null;
-  variables.role === null ? (variables.role = "profession") : null;
+  let profession = variables.role === null ? "Profession" : variables.role;
 
-  let city = variables.city === null ? (variables.city = "city") : null;
+  let city =
+    variables.city === null ? (variables.city = "City") : variables.city;
 
   let country =
-    variables.country === null ? (variables.country = "country") : null;
+    variables.country === null
+      ? (variables.country = "Country")
+      : variables.country;
 
   let twitter =
-    variables.twitter === null ? (variables.twitter = "twitter") : null;
+    variables.twitter === null
+      ? (variables.twitter = "twitter")
+      : variables.twitter;
 
-  let github = variables.github === null ? (variables.github = "github") : null;
+  let github =
+    variables.github === null
+      ? (variables.github = "github")
+      : variables.github;
 
   let linkedin =
-    variables.linkedin === null ? (variables.linkedin = "linkedin") : null;
+    variables.linkedin === null
+      ? (variables.linkedin = "linkedin")
+      : variables.linkedin;
 
   let instagram =
-    variables.instagram === null ? (variables.instagram = "instagram") : null;
+    variables.instagram === null
+      ? (variables.instagram = "instagram")
+      : variables.instagram;
 
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
@@ -99,8 +111,7 @@ window.onload = function() {
 
   document.querySelectorAll(".picker").forEach(function(elm) {
     elm.addEventListener("change", function(e) {
-      // <- add a listener to every input
-      const attribute = e.target.getAttribute("for"); // when any input changes, collect the value
+      const attribute = e.target.getAttribute("for");
       let values = {};
       values[attribute] =
         this.value == "" || this.value == "null"
@@ -110,7 +121,18 @@ window.onload = function() {
           : this.value == "false"
           ? false
           : this.value;
-      render(Object.assign(window.variables, values)); // render again the card with new values
+
+      if (attribute === "role") {
+        if (values[attribute] === "Web Developer") {
+          console.log("Web Developer");
+        } else if (values[attribute] === "Floor Planner") {
+          console.log("Floor Planner");
+        } else if (values[attribute] === "Technical Writter") {
+          console.log("Technical Writter");
+        }
+      }
+
+      render(Object.assign(window.variables, values));
     });
   });
 };
